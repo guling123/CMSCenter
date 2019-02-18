@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.people.mapper.SysUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.people.entity.SysUser">
+    <result column="id" property="id" />
+    <result column="userid" property="userid" />
+        <result column="username" property="username" />
+        <result column="realname" property="realname" />
+        <result column="pwd" property="pwd" />
+        <result column="pwdsalt" property="pwdsalt" />
+        <result column="createtime" property="createtime" />
+        <result column="lastlogintime" property="lastlogintime" />
+        <result column="createrid" property="createrid" />
+        <result column="roleid" property="roleid" />
+        <result column="orgid" property="orgid" />
+        <result column="dstatus" property="dstatus" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,userid,
+        username, realname, pwd, pwdsalt, createtime, lastlogintime, createrid, roleid, orgid, dstatus
+    </sql>
+
+    <select id="queryUserByPage" parameterType="cn.people.controller.vo.SysUserListVO" resultMap="BaseResultMap">
+          select Usr.id,Usr.userid, Usr.username, Usr.realname, Usr.createtime, Usr.createrid, Usr.roleid, Usr.dstatus, grp.groupid pwdsalt
+          from tb_sys_user Usr 
+          LEFT JOIN tb_sys_user_channel grp ON (grp.sysuerid=Usr.id AND grp.groupid IN (SELECT id from tb_sys_group where tb_sys_group.siteid=#{param.siteid}))
+        <where>
+            <if test="param.key != null and param.key != ''">
+                and (Usr.id like CONCAT(CONCAT('%',#{param.key}),'%')
+                  or Usr.username like CONCAT(CONCAT('%',#{param.key}),'%'))
+            </if>
+            <if test="param.realname != null">
+                and Usr.realname like CONCAT(CONCAT('%',#{param.realname}),'%')
+            </if>
+            <if test="param.orgid != null">
+                and Usr.orgid = #{param.orgid}
+            </if>
+            <if test="param.dstatus != null">
+                and Usr.dstatus = #{param.dstatus}
+            </if>
+            <if test="param.roleid != null">
+                and Usr.roleid = #{param.roleid}
+            </if>
+            <if test="param.createrids != null">
+                and Usr.createrid in
+              <foreach collection="createrids" item="item" separator="," open="(" close=")">
+               #{item, jdbcType=VARCHAR, javaType=java.lang.String}
+             </foreach>
+            </if>
+            <if test="param.groupid != null">
+                and grp.groupid = #{param.groupid}
+            </if>
+        </where>
+        order by createtime desc
+    </select>
+</mapper>

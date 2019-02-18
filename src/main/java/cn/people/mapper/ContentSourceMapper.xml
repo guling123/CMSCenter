@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.people.mapper.ContentSourceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.people.entity.ContentSource">
+    <result column="id" property="id" />
+        <result column="siteid" property="siteid" />
+        <result column="sourcename" property="sourcename" />
+        <result column="domain" property="domain" />
+        <result column="source_url" property="sourceUrl" />
+        <result column="reliability" property="reliability" />
+        <result column="limit_date" property="limitDate" />
+        <result column="status" property="status" />
+        <result column="createrid" property="createrid" />
+        <result column="createtime" property="createtime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        siteid, sourcename, domain, source_url, reliability, limit_date, status, createrid, createtime
+    </sql>
+
+</mapper>

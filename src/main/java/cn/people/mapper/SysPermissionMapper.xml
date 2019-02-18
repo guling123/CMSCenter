@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.people.mapper.SysPermissionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.people.entity.SysPermission">
+    <result column="id" property="id" />
+        <result column="ident" property="ident" />
+        <result column="permissionname" property="permissionname" />
+        <result column="parent_id" property="parentId" />
+        <result column="sort_index" property="sortIndex" />
+        <result column="menu_flg" property="menuFlg" />
+        <result column="createtime" property="createtime" />
+        <result column="createrid" property="createrid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,
+        ident, permissionname, parent_id, sort_index, menu_flg, createtime, createrid
+    </sql>
+
+</mapper>

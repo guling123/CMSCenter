@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login page</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<h1>Login page</h1>
+<p>Example user: user / password</p>
+<p th:if="${loginError}" class="error">Wrong user or password</p>
+<form th:action="@{/login}" method="post">
+    <label for="username">Username</label>:
+    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+    <label for="password">Password</label>:
+    <input type="password" id="password" name="password" /> <br />
+    <input name="vcode" type="text" id="vcode" value="" tabindex="3" class="text vcode" maxlength="4"><img class="icodeindex" th:src="@{/code.jpg}" th:onclick="'javascript:changeImg();'"/>
+    <input type="submit" value="Log in" />
+</form>
+<p><a href="/index" th:href="@{/index}">Back to home page</a></p>
+</body>
+<script type="text/javascript">
+     $(function() {
+ 
+     });
+ 
+     function changeImg() {
+         var imgSrc = $(".icodeindex");    
+         var src = imgSrc.attr("src");        
+         imgSrc.attr("src", chgUrl(src));
+     }
+     
+     // 时间戳
+     // 为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳
+     function chgUrl(url) {
+         var timestamp = (new Date()).valueOf();
+         url = url.substring(0, 20);
+         if ((url.indexOf("&") >= 0)) {
+             url = url + "×tamp=" + timestamp;
+         } else {
+             url = url + "?timestamp=" + timestamp;
+         }
+         return url;
+     }
+ 
+</script>
+</html>

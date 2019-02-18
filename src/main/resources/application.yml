@@ -1,0 +1,46 @@
+server:
+  port: 8001
+mybatis-plus:
+
+  mapper-locations: classpath*:cn/people/mapper/*.xml
+  type-aliases-package: com.baomidou.mybatisplus.samples.quickstart.entity
+  executor-type: simple
+  configuration:
+    cache-enabled: true
+spring:
+  application:
+    name: CMSCenter
+  profiles:
+    active:
+      - dev
+  datasource:
+    url: jdbc:mysql://10.3.37.239:3306/cms?useUnicode=true&useSSL=false&characterEncoding=utf8
+    username: root
+    password: 1qaz@WSX
+    driverClassName: com.mysql.jdbc.Driver
+  thymeleaf:
+    suffix: .html
+    prefix: classpath:/templates/
+    check-template-location: true
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    mode: HTML5
+    cache: false
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    timeout: 10000
+    pool:
+      max-idle: 20
+      min-idle: 5
+      max-active: 20
+      max-wait: 2
+
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          DEBUG
